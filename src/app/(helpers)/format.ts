@@ -1,0 +1,2 @@
+export const fmtUSD = (n: number | undefined | null) => (n ?? 0).toLocaleString(undefined, { style: "currency", currency: "USD", maximumFractionDigits: 6 });
+export const fmtPct = (n: number) => `${(n * 100).toFixed(2)}%`;
