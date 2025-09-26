@@ -64,15 +64,15 @@ export default function DashboardPage() {
       ) : (
         <Card className="overflow-x-auto">
           <Table>
-            <THead>
-              <tr>
-                <th>Coin</th>
-                <th>Qty</th>
-                <th>Avg Buy</th>
-                <th>Live</th>
-                <th>Value</th>
-                <th>P&L</th>
-                <th>Share</th>
+            <THead className="bg-slate-900/80">
+              <tr className="text-left text-xs uppercase tracking-wide text-slate-400 border-b border-slate-800">
+                <th className="px-4 py-3 font-semibold">Coin</th>
+                <th className="px-4 py-3 font-semibold">Qty</th>
+                <th className="px-4 py-3 font-semibold">Avg&nbsp;Buy</th>
+                <th className="px-4 py-3 font-semibold">Live</th>
+                <th className="px-4 py-3 font-semibold">Value</th>
+                <th className="px-4 py-3 font-semibold">P&amp;L</th>
+                <th className="px-4 py-3 font-semibold">Share</th>
               </tr>
             </THead>
             <tbody>

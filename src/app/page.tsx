@@ -84,13 +84,13 @@ export default function MarketsPage() {
       {marketsQuery.data && (
         <Card className="overflow-x-auto">
           <Table>
-            <THead>
-              <tr>
-                <th>#</th>
-                <th>Coin</th>
-                <th>Price</th>
-                <th>24h</th>
-                <th>Market Cap</th>
+            <THead className="bg-slate-900/80">
+              <tr className="text-left text-xs uppercase tracking-wide text-slate-400 border-b border-slate-800">
+                <th className="px-4 py-3 font-semibold w-12">#</th>
+                <th className="px-4 py-3 font-semibold">Coin</th>
+                <th className="px-4 py-3 font-semibold">Price</th>
+                <th className="px-4 py-3 font-semibold">24h</th>
+                <th className="px-4 py-3 font-semibold">Market Cap</th>
               </tr>
             </THead>
             <tbody>

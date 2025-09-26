@@ -115,13 +115,16 @@ export default function CoinDetailPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <Card className="p-4 space-y-2">
           <div className="font-semibold">Add to Portfolio</div>
-          <label className="text-sm text-slate-400">Quantity</label>
+          <label className="text-sm text-slate-400 pr-3">Quantity</label>
           <Input value={qty} onChange={(e)=>setQtyBuy(e.target.value)} type="number" min="0" step="any"/>
           <br/>
-          <label className="text-sm text-slate-400">Price(USD)</label>
+          <label className="text-sm text-slate-400 pr-3">Price(USD)</label>
           <Input value={price} onChange={(e)=>setPrice(e.target.value)} type="number" min="0" step="any" placeholder={String(coin.current_price)}/>
-          <Button disabled={!canBuy} onClick={handleBuy} className="w-full">Buy</Button>
-          <Link href="/dashboard" className="btn-outline w-full text-center block">Go to Dashboard</Link>
+          <div className="flex items-center gap-3 py-3">
+            <Button disabled={!canBuy} onClick={handleBuy} className="w-full">Buy</Button>
+            <Link href="/dashboard" className="btn-outline w-full text-center block">Go to Dashboard</Link>
+          </div>
+          
         </Card>
 
         <Card className="p-4 space-y-2">
@@ -131,13 +134,13 @@ export default function CoinDetailPage() {
             return (
               <div className="space-y-2">
                 <div className="font-semibold">Sell from Portfolio</div>
-                <div className="text-sm text-slate-400">
+                <div className="text-sm text-slate-400 py-3">
                   You currently hold:{" "}
                   <span className="font-medium text-slate-200">{currentQty}</span>{" "}
                   {coin.symbol?.toUpperCase()}
                 </div>
 
-                <label className="text-sm text-slate-400">Quantity to Sell</label>
+                <label className="text-sm text-slate-400 pr-3">Quantity to Sell</label>
                 <Input
                   value={qtySell}
                   onChange={(e) => setQtySell(e.target.value)}
@@ -146,8 +149,8 @@ export default function CoinDetailPage() {
                   max={currentQty}
                   step="any"
                 />
-
-                <Button
+                <div className="flex items-center gap-3 py-3">
+                  <Button
                   disabled={Number(qtySell) <= 0 || Number(qtySell) > currentQty}
                   onClick={() => {
                     portfolio.sell(id, Number(qtySell));
@@ -159,6 +162,8 @@ export default function CoinDetailPage() {
                 >
                   Sell
                 </Button>
+                </div>
+                
               </div>
             );
         })()}
