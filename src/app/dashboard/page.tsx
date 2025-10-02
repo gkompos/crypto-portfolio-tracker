@@ -24,7 +24,7 @@ export default function DashboardPage() {
         setPrices(map);
       }
     })();
-    return () => { cancelled = true; };
+    return () => { cancelled = true; };   //guard avoids setting state after unmount.
   }, [JSON.stringify(ids)]);
 
   const rows = useMemo(() => {
