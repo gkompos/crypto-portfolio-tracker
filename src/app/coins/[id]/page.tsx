@@ -30,23 +30,22 @@ export default function CoinDetailPage() {
       const x = await fetchJSON(`${COINGECKO}/coins/markets?vs_currency=usd&ids=${id}`);
       return x[0];
     },
-    staleTime: 30_000, //fresh enough for UI; avoids refetch churn
+    staleTime: 30_000,
     enabled: !!id, 
   });
 
   const chartQ = useQuery({
     queryKey: ["chart", id, days],
-    queryFn: async () => {          //transforms the response into { ts, price } objects
+    queryFn: async () => {
       const ch = await fetchJSON(`${COINGECKO}/coins/${id}/market_chart?vs_currency=usd&days=${days}`);
       return (ch.prices ?? []).map(([ts, p]: [number, number]) => ({ ts, price: p }));
     },
-    staleTime: 30_000, //This means the fetched chart data is considered fresh for 30 seconds.
-                      // Crypto prices and chart data change frequentl
-    enabled: !!id,    //ensures the query only runs if id exists
+    staleTime: 30_000,
+    enabled: !!id,
   });
 
   const infoQ = useQuery({
-    queryKey: ["coin-info", id], 
+    queryKey: ["coin-info", id],
     queryFn: async () =>
       fetchJSON(
         `${COINGECKO}/coins/${id}?localization=false&tickers=false&market_data=false&community_data=false&developer_data=false&sparkline=false`
@@ -72,6 +71,7 @@ export default function CoinDetailPage() {
 
   const coin = coinQ.data as any;
 
+  console.log(coin)
   return (
     <section className="space-y-6">
        <div className="flex items-center gap-3">

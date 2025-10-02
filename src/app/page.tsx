@@ -23,8 +23,7 @@ export default function MarketsPage() {
   const [search, setSearch] = useState("");
   const [debounced, setDebounced] = useState("");
 
-  useEffect(() => { const t = setTimeout(() => setDebounced(search), 300); 
-    return () => clearTimeout(t); }, [search]); //avoids firing a request on every keystroke; it waits 300ms of inactivity.
+  useEffect(() => { const t = setTimeout(() => setDebounced(search), 300); return () => clearTimeout(t); }, [search]);
 
   const marketsQuery = useQuery({
     queryKey: ["markets", debounced ? "search" : "list", page, perPage, debounced],
@@ -38,7 +37,7 @@ export default function MarketsPage() {
       return fetchJSON(`${COINGECKO}/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=${perPage}&page=${page}&price_change_percentage=24h`);
     },
     staleTime: 30_000,
-    placeholderData: (prev) => prev, //keeps previous page’s data visible while the new one loads (less UI flicker).
+    placeholderData: (prev) => prev,
   });
 
   return (

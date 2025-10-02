@@ -5,24 +5,23 @@ export type Holding = { coinId: string; symbol: string; name: string; qty: numbe
 export type Portfolio = Record<string, Holding>;
 const LS_KEY = "crypto-portfolio-v1";
 
-export function usePortfolio() { //Manages portfolio state with localStorage persistence. Custom hook. Share the portfolio state and actions(logic).
-  const [holdings, setHoldings] = useState<Portfolio>(() => {  //Uses a lazy initializer so parsing runs once.
-    if (typeof window === "undefined") return {};  //Guards window for SSR.
-    try {                                       //Swallows parse errors safely.
-      const raw = localStorage.getItem(LS_KEY);  
-      return raw ? JSON.parse(raw) : {};      
+export function usePortfolio() {
+  const [holdings, setHoldings] = useState<Portfolio>(() => {
+    if (typeof window === "undefined") return {};
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      return raw ? JSON.parse(raw) : {};
     } catch {
       return {};
     }
   });
 
-  //Avoid writing on first render
-  const didMount = useRef(false); 
+  const didMount = useRef(false);
   useEffect(() => {
     didMount.current = true;
   }, []);
 
-  useEffect(() => {         //Writes only after initial mount → prevents overwriting existing storage during hydration.
+  useEffect(() => {
     if (!didMount.current) return;
     try {
       localStorage.setItem(LS_KEY, JSON.stringify(holdings));
@@ -50,7 +49,7 @@ export function usePortfolio() { //Manages portfolio state with localStorage per
       const old = prev[coinId];
       if (!old) return prev;
 
-      // no negative positions
+      // never allow selling more than you hold
       const sellQty = Math.min(old.qty, amount);
       const newQty = old.qty - sellQty;
 

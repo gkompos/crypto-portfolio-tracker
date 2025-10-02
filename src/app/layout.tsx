@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { QueryProvider } from "@/components/query-provider";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/cn";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "./favicon.ico";
